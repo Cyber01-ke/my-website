@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forex & Crypto Mentorship</title>
+    <style>
+        /* General reset and base styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #F8F9FA;
+            color: #333;
+            overflow-x: hidden;
+            scroll-behavior: smooth; /* Smooth scrolling */
+        }
+
+        /* New Welcome Section */
+        #welcomeSection {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: #003366;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            overflow: hidden;
+        }
+
+        #welcomeSection video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+        }
+
+        #welcomeSection .content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: #FFD700;
+            font-size: 3rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: fadeIn 3s ease-in-out;
+        }
+
+        /* Animation for website name */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(-50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Button to skip the welcome section */
+        #skipButton {
+            position: absolute;
+            bottom: 20px;
+            background-color: #FFD700;
+            color: #003366;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #skipButton:hover {
+            background-color: #D4AF37;
+        }
+
+        /* Home Section */
+        #home {
+            position: relative;
+            background-color: #003366;
+            color: white;
+            height: 70vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        #home video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.5;
+        }
+
+        #home .content {
+            position: relative;
+            z-index: 10;
+            color: #FFD700;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        #home h1 {
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        #home p {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        /* Header */
+        header {
+            background-color: #003366;
+            color: #FFD700;
+            text-align: center;
+            padding: 20px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #003366;
+            padding: 10px 0;
+        }
+
+        nav button {
+            background-color: #FFD700;
+            color: #003366;
+            padding: 12px 20px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        nav button:hover {
+            background-color: #D4AF37;
+            transform: translateY(-3px);
+        }
+
+        .section {
+            display: none;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #003366;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input, select, button {
+            padding: 12px;
+            font-size: 1rem;
+            border: 1px solid #CCCCCC;
+            border-radius: 5px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: #003366;
+            box-shadow: 0 0 5px #003366;
+            outline: none;
+        }
+
+        button {
+            background-color: #003366;
+            color: white;
+            border: none;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #00509E;
+            transform: translateY(-3px);
+        }
+
+        button:disabled {
+            background-color: #CCCCCC;
+            cursor: not-allowed;
+        }
+
+        /* Floating AI Button (Moved to top-right) */
+        #aiBotButton {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #003366;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            padding: 15px;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        #aiBotButton img {
+            width: 30px;
+            height: 30px;
+        }
+
+        #aiBotButton:hover {
+            background-color: #00509E;
+            transform: scale(1.1);
+        }
+
+        /* Chat Modal */
+        #chatModal {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        #chatModal header {
+            background-color: #003366;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        #chatModal .content {
+            padding: 10px;
+            height: 200px;
+            overflow-y: auto;
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        #chatModal footer {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        #chatModal footer input {
+            flex: 1;
+            padding: 8px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        #chatModal footer button {
+            background-color: #003366;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #chatModal footer button:hover {
+            background-color: #00509E;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            nav button {
+                font-size: 0.9rem;
+                padding: 10px 15px;
+            }
+
+            .section {
+                margin: 20px;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Section with Video and Website Animation -->
+    <section id="welcomeSection">
+        <video autoplay loop muted>
+            <source src="stocks effect.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="content">
+            <h1>Forex & Crypto Mentorship</h1>
+        </div>
+        <button id="skipButton">Skip</button>
+    </section>
+
+    <header>
+        <h1>Welcome to Forex & Crypto Mentorship</h1>
+    </header>
+
+    <nav>
+        <button id="registerBtn">Register</button>
+        <button id="loginBtn">Login</button>
+        <button id="paymentBtn">Subscription</button>
+        <button id="classBtn">Online Class</button>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home">
+        <video autoplay loop muted>
+            <source src="forex effect.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="content">
+            <h1>Forex & Crypto Mentorship</h1>
+            <p>Unlock your potential in Forex and Crypto trading. Learn, grow, and earn with us!</p>
+        </div>
+    </section>
+
+    <main>
+        <!-- Register Section -->
+        <div class="section" id="registerSection">
+            <h2>Register</h2>
+            <form id="registerForm">
+                <input type="text" id="name" placeholder="Name" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <select id="role">
+                    <option value="mentee">Signal</option>
+                    <option value="mentor">Mentorship</option>
+                </select>
+                <button type="submit">Register</button>
+            </form>
+        </div>
+
+        <!-- Login Section -->
+        <div class="section" id="loginSection">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <input type="email" id="loginEmail" placeholder="Email" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+
+        <!-- Payment Section -->
+        <div class="section" id="paymentSection">
+            <h2>Select Payment Method</h2>
+            <div class="payment-options">
+                <input type="checkbox" id="crypto" name="payment-method" value="crypto">
+                <label for="crypto">Pay with Crypto</label>
+
+                <div id="crypto-payment-options">
+                    <ul class="crypto-list">
+                        <li>
+                            <button type="button" onclick="selectCrypto('bitcoin')">
+                                <img src="b.png" alt="Bitcoin"> Bitcoin (BTC)
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" onclick="selectCrypto('usdt')">
+                                <img src="usdt.png" alt="USDT"> USDT (Tether)
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Online Class Section -->
+        <div class="section" id="classSection">
+            <h2>Online Class</h2>
+            <p>Join our live sessions and learn the secrets of successful trading.</p>
+        </div>
+    </main>
+
+    <!-- AI Chat Button -->
+    <button id="aiBotButton">
+        <img src="ai.jpg" alt="AI Bot">
+    </button>
+
+    <!-- Chat Modal -->
+    <div id="chatModal">
+        <header>Ask AI</header>
+        <div class="content">
+            <p>How can I assist you today?</p>
+        </div>
+        <footer>
+            <input type="text" placeholder="Type your question here...">
+            <button>Send</button>
+        </footer>
+    </div>
+
+    <script>
+        // Close the welcome section after skipping or delay
+        const skipButton = document.getElementById('skipButton');
+        const welcomeSection = document.getElementById('welcomeSection');
+        
+        skipButton.addEventListener('click', () => {
+            welcomeSection.style.display = 'none';
+        });
+
+        setTimeout(() => {
+            welcomeSection.style.display = 'none';
+        }, 5000); // Automatically hide after 5 seconds
+
+        // Script to toggle sections
+        const registerBtn = document.getElementById('registerBtn');
+        const loginBtn = document.getElementById('loginBtn');
+        const paymentBtn = document.getElementById('paymentBtn');
+        const classBtn = document.getElementById('classBtn');
+
+        const registerSection = document.getElementById('registerSection');
+        const loginSection = document.getElementById('loginSection');
+        const paymentSection = document.getElementById('paymentSection');
+        const classSection = document.getElementById('classSection');
+
+        registerBtn.addEventListener('click', () => {
+            showSection(registerSection);
+            registerSection.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        loginBtn.addEventListener('click', () => {
+            showSection(loginSection);
+            loginSection.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        paymentBtn.addEventListener('click', () => {
+            showSection(paymentSection);
+            paymentSection.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        classBtn.addEventListener('click', () => {
+            showSection(classSection);
+            classSection.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        function showSection(section) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(sec => sec.classList.remove('active'));
+            section.classList.add('active');
+        }
+
+        // Script for AI Chat Modal
+        const aiBotButton = document.getElementById('aiBotButton');
+        const chatModal = document.getElementById('chatModal');
+
+        aiBotButton.addEventListener('click', () => {
+            chatModal.style.display = chatModal.style.display === 'none' ? 'flex' : 'none';
+        });
+    </script>
+</body>
+</html>
